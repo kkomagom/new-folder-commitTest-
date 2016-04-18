@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kosta.mapper.BoardMapper">
+	<cache />
+	
+	<!-- insertBoard -->
+	<insert id="insertBoard" parameterType="Board">
+		insert into board3 (
+			b_id, b_name, b_title, b_content, b_pwd, b_hit, b_date, b_ref, b_step, b_level, b_fname
+		) values (
+			#{b_id}, #{b_name}, #{b_title}, #{b_content}, #{b_pwd}, 0, SYSDATE, 0, 0, 0, #{b_fname}
+		)
+	</insert>
+	
+	<!-- selectB_id -->
+	<select id="selectB_id" resultType="Integer">
+		select max(b_id) from board3
+	</select>
+	
+	<!-- listBoard -->
+	<select id="listBoard" resultType="Board">
+		select * from board3 order by b_id desc
+	</select>
+	
+	<!-- selectBoard -->
+	<select id="selectBoard" parameterType="int" resultType="Board">
+		select * from board3 where b_id = #{b_id}
+	</select>
+	
+	<!-- updateHit -->
+	<update id="updateHit" parameterType="int">
+		update board3 set b_hit = b_hit + 1 where b_id = #{b_id}
+	</update>
+	
+	<!-- updateBoard -->
+	<update id="updateBoard" parameterType="Board">
+		update board3 set b_title = #{b_title}, b_content = #{b_content} where b_id = #{b_id}
+	</update>
+	
+	<!-- deleteBoard -->
+	<delete id="deleteBoard" parameterType="int">
+		delete from board3 where b_id = #{b_id}
+	</delete>
+	
+	<!-- checkPass -->
+	<select id="checkPass" parameterType="int" resultType="String">
+		select b_pwd from board3 where b_id = #{b_id}
+	</select>
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
